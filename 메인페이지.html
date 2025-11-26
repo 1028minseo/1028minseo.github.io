@@ -1,0 +1,216 @@
+<html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>운암고등학교 별별아카데미</title>
+    
+    <style>
+        /* --- [스타일 정의 구간] --- */
+
+        /* 1. 전체 페이지 기본 설정 */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Pretendard', 'Malgun Gothic', sans-serif; /* 가독성 좋은 폰트 */
+            /* 배경 */
+            background-color: #4A90E2; 
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh; /* 화면 꽉 차게 */
+        }
+
+        /* 2. 상단 헤더 (로고 및 제목) */
+        header {
+            width: 100%;
+            padding: 20px 0;
+            text-align: center;
+            color: white;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* 3. 메인 콘텐츠 영역 (중앙 정렬) */
+        main {
+            width: 90%; /* 모바일 좌우 여백 확보 */
+            max-width: 400px; /* 태블릿/PC에서 너무 넓어지지 않게 제한 */
+            flex: 1; /* 남은 공간 채우기 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; /* 세로 중앙 정렬 */
+            gap: 20px; /* 요소 사이 간격 */
+            padding-bottom: 40px;
+        }
+
+        /* 4. 캐릭터 영역 (직접 그리신 그림이 들어갈 곳) */
+        .title-area {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .character-img {
+            /* 임시로 원형으로 표현했습니다. 실제 이미지 경로로 바꾸면 됩니다. */
+            width: 120px;
+            height: 120px;
+            background-color: #fff; /* 흰색 배경 */
+            border-radius: 50%; /* 원형 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 5. 말풍선 (친근한 대사) */
+        .speech-bubble {
+            background-color: white;
+            padding: 10px 15px;
+            border-radius: 15px;
+            position: relative;
+            margin-bottom: 20px;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        /* 말풍선 꼬리 만들기 */
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 10px 10px 0;
+            border-style: solid;
+            border-color: white transparent;
+        }
+
+        /* 6. 핵심 메뉴 박스 (카드 디자인) */
+        .nav-box {
+            background-color: var(--nav-bar-color);
+            width: 100%;
+            padding: 20px;
+            border-radius: 15px; /* 둥근 모서리 */
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* 살짝 뜬 느낌 */
+            text-decoration: none; /* 링크 밑줄 제거 */
+            color: #333;
+            display: flex; /* 아이콘과 텍스트 가로 배치 */
+            align-items: center;
+            transition: transform 0.2s; /* 클릭 시 움직임 효과 */
+            box-sizing: border-box; /* 패딩 포함 크기 계산 */
+        }
+
+        .first {
+  --nav-bar-color: rgb(145, 189, 255);
+}
+
+        .two {
+  --nav-bar-color: rgb(214, 237, 255);
+}
+        .sam {
+  --nav-bar-color: rgb(255, 255, 255);
+}
+
+
+        /* 클릭(터치)했을 때 살짝 눌리는 효과 */
+        .nav-box:active {
+            transform: scale(0.98);
+        }
+
+        /* 박스 내부 아이콘 스타일 */
+        .nav-icon {
+            font-size: 2rem;
+            margin-right: 15px;
+            background-color: #f0f4f8;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        /* 박스 내부 텍스트 스타일 */
+        .nav-text h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: #2c3e50;
+        }
+        
+        .nav-text p {
+            margin: 5px 0 0 0;
+            font-size: 0.85rem;
+            color: #7f8c8d;
+        }
+
+        /* 7. 하단 푸터 */
+        footer {
+            color: rgba(333);
+            font-size: 0.7rem;
+            padding: 20px;
+            text-align: center;
+        }
+
+       body {
+  background-image: linear-gradient(#4facfe, #cff6f8);
+  height: 120vh;
+  margin: 0;
+}
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Art:Navigator</div>
+        <div class="subtitle">고등학생을 위한 친절한 미술사</div>
+    </header>
+
+    <main>
+        
+        <div class="title-area">
+            <div class="speech-bubble">
+               운암고등학교 별별아카데미 결과물
+            </div>
+            <div class="character-img">
+                <img class="character-img" src="data:image/jpeg;base64,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">
+          </div>
+        </div>
+
+        <a href="studyy.html" class="nav-box first">
+            <div class="nav-icon">📜</div>
+            <div class="nav-text">
+                <h3>미술사 흐름으로 알아보기</h3>
+                <p>시대별 연대표로 정리한 미술사 이해하기</p>
+            </div>
+        </a>
+
+        <a href="edu.html" class="nav-box two">
+            <div class="nav-icon">📚</div>
+            <div class="nav-text">
+                <h3>교과서 내용과 연계하기</h3>
+                <p>교과서에서 배웠던 내용과 연관짓기</p>
+            </div>
+        </a>
+
+             <a href="discovery.html" class="nav-box sam">
+            <div class="nav-icon">🔍</div>
+            <div class="nav-text">
+                <h3>현대 사회에서 바라보기</h3>
+                <p>우리 주변에서 찾아볼 수 있는 디자인과 미술사 연계하기</p>
+            </div>
+        </a>
+    </main>
+
+    <footer>
+        &copy; 2025 별별아카데미 ai와 함께하는 웹개발<br>
+    10612
+    </footer>
+
+</body>
+</html>
+```
