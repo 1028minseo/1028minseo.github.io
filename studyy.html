@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미술사 흐름 찾기</title>
+    <style>
+        /* --- [기본 스타일 유지] --- */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #4A90E2; /* 파란 배경 */
+            font-family: 'Pretendard', sans-serif;
+            color: #333;
+        }
+
+        /* --- [1. 연대표 전체 컨테이너] --- */
+        .timeline-container {
+            max-width: 600px; /* 너무 넓어지지 않게 제한 */
+            margin: 40px auto; /* 중앙 정렬 */
+            padding: 0 20px; /* 좌우 여백 */
+        }
+
+        /* --- [2. 수직선 만들기 핵심!] --- */
+        .timeline {
+            /* 왼쪽 테두리(border-left)를 선으로 사용합니다 */
+            border-left: 3px solid rgba(255, 255, 255, 0.6); 
+            margin-left: 10px; /* 화면 왼쪽에서 살짝 띄우기 */
+            padding-left: 30px; /* 선과 내용 사이의 간격 */
+        }
+
+        /* --- [3. 개별 사건(박스) 묶음] --- */
+        .event-box {
+            position: relative; /* 점을 배치하기 위한 기준점 */
+            margin-bottom: 40px; /* 박스 사이 간격 */
+        }
+
+        /* --- [4. 연대표 위의 '점' 만들기 (::before 활용)] --- */
+        .event-box::before {
+            content: ''; /* 가상 요소 필수값 */
+            position: absolute;
+            
+            /* 점의 위치 잡기 */
+            left: -39px; /* (padding-left 30px) + (선 두께 3px) + (점 크기 보정) */
+            top: 15px;   /* 박스 위쪽에서 얼마나 내려올지 */
+            
+            /* 점의 모양 */
+            width: 16px;
+            height: 16px;
+            border-radius: 50%; /* 원형으로 만들기 */
+            background-color: #FFD700; /* 노란색 점 */
+            border: 3px solid #4A90E2; /* 점 주변에 파란 테두리를 줘서 선과 분리된 느낌 */
+            z-index: 1;
+        }
+
+        /* --- [5. 내용 카드 디자인] --- */
+        /* a 태그 자체가 카드가 됩니다 */
+        .event-card {
+            display: block; /* 박스 형태로 만듦 */
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-decoration: none; /* 링크 밑줄 제거 */
+            color: #333;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+.event-card::after {
+            content: '';
+            position: absolute;
+            left: -10px; /* 왼쪽 테두리 밖으로 10px 튀어나오게 설정 */
+    top: 20%;    /* 수직 중앙에 시작점 설정 */
+    transform: translateY(-50%); /* 꼬리 높이만큼 위로 올려 정확히 수직 중앙 맞추기 */
+    border-width: 10px 10px 10px 0; 
+    border-style: solid;
+    border-color: transparent white transparent transparent;
+        .event-card:active {
+            transform: scale(0.98); /* 클릭 시 눌리는 효과 */
+        }
+    }
+
+        /* 카드 내부 텍스트 스타일 */
+        .year {
+            display: inline-block;
+            background-color: #eee;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: #555;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .title {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .desc {
+            margin: 5px 0 0 0;
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.4;
+        }
+         /* --- [새로 추가할 스타일] --- */
+
+/* 헤더 제목과 이미지를 감싸는 컨테이너 */
+.header-content-wrapper {
+    display: flex;             /* Flexbox 활성화 */
+    justify-content: space-between; /* 제목과 이미지를 양쪽 끝으로 밀기 */
+    align-items: center;       /* 세로 중앙 정렬 */
+    max-width: 800px;          /* 연대표와 동일하게 최대 너비 지정 */
+    margin: 0 auto;            /* 중앙 정렬 */
+    padding: 0 20px;           /* 좌우 여백 */
+    margin-top: 10px;          /* 위쪽 여백 */       
+}
+
+/* 기존 h2 태그의 중앙 정렬을 해제하고 왼쪽 정렬로 변경 */
+/* 1. 헤더 전체: 기준점 잡기 */
+.page-header {
+    position: relative; /* 자식 요소(버튼)의 기준점이 됩니다 */
+    display: flex;      /* 플렉스박스 선언 */
+    justify-content: center; /* 내용물(제목+이미지)을 가로 정중앙으로! */
+    align-items: center;     /* 세로 정중앙으로! */
+    padding: 20px 0;
+    width: 100%;
+    margin: 0;
+}
+
+.back-btn {
+    position: absolute; /* 흐름 무시하고 띄우기 */
+    /* (선택사항) 버튼이 위아래 중앙이 안 맞으면 아래 두 줄 추가 */
+    top: 10%;
+    transform: translateY(-50%);
+    margin: 0; /* 기존 마진 제거 */
+}
+
+.header-content-wrapper {
+    display: flex;
+    align-items: center; /* 제목과 이미지 높이 맞춤 */
+    gap: 15px;           /* 사이 간격 */
+}
+
+        .speech-bubble {
+            display: grid;
+            background-color: aliceblue;
+            padding: 10px 15px;
+            border-radius: 15px;
+            position: relative;
+            margin-bottom: 10px;
+            margin-top: 0px;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+          flex-grow: 0;   /* 부모가 남는 공간이 있어도 나를 늘리지 마! */
+    flex-shrink: 0; /* 부모가 좁아져도 나를 억지로 줄이지 마! */
+    width: 700px; /* 이제 원하는 너비 값을 확실히 지정 */
+    max-width: 100%;
+        }
+
+        /* 말풍선 꼬리 만들기 */
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: 97px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 0px 10px 10px;
+            border-style: solid;
+            border-color: aliceblue transparent;
+            transform: rotate(50%)
+        }
+    
+        /* 1. 키프레임 정의: 'slideInLeft' */
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100px); 
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0); /* 끝: 원래 위치 (translateX(0)) */
+    }
+}
+
+/* 2. 이미지 요소에 적용 */
+.image-slide-in {
+    /* 초기 상태를 정의할 필요 없이, 애니메이션 속성만 부여 */
+    animation: slideInLeft 0.8s ease-out forwards; 
+    /* 0.8초 동안 실행되며, 끝난 상태를 유지합니다. */
+}
+
+
+    </style>
+</head>
+<body>
+
+    <div class="page-header">
+   <h2>
+        <img 
+            src="1.png" 
+            class="image-slide-in"
+        >
+    
+    </h2>
+    </div>
+
+    <div class="page-header">
+            <div class="speech-bubble">
+               <p>흐름으로 같이 알아볼까요?</p>
+                  <a href="메인페이지.html">◀ 메인으로 돌아가기</a>
+          </div>
+        </div>
+        </div>
+
+    <div class="timeline-container">
+        <div class="timeline">
+
+            <div class="event-box">
+                <a href="renaissance.html" class="event-card">
+                    <span class="year">14세기 - 16세기</span>
+                    <h3 class="title">르네상스</h3>
+                </a>
+            </div>
+
+            <div class="event-box">
+                <a href="baroque.html" class="event-card">
+                    <span class="year">17세기</span>
+                    <h3 class="title">바로크</h3>
+                </a>
+            </div>
+
+            <div class="event-box">
+                <a href="impressionism.html" class="event-card">
+                    <span class="year">19세기 후반</span>
+                    <h3 class="title">인상주의</h3>                   
+                </a>
+            </div>
+
+             <div class="event-box">
+                <a href="modern.html" class="event-card">
+                    <span class="year">20세기 ~</span>
+                    <h3 class="title">현대 미술</h3>
+                    
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

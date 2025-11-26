@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미술사와 현대 디자인</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* [1] 공통 스타일 (이전과 동일한 테마) */
+        :root {
+            --primary-blue: #2563eb;
+            --dark-blue: #1e40af;
+            --light-blue: #eff6ff;
+            --text-color: #333;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--light-blue);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* [2] 헤더 영역 */
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            max-width: 800px;
+        }
+
+        .category-tag {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: var(--dark-blue);
+            margin: 0 0 10px 0;
+            line-height: 1.3;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #555;
+            word-break: keep-all;
+        }
+
+        /* [3] 메인 그리드 (카드 배치) */
+        .design-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        /* [4] 디자인 카드 스타일 */
+        .design-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.1); /* 파란빛 그림자 */
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .design-card:hover {
+            transform: translateY(-7px);
+        }
+
+        /* 카드 상단: 비교 이미지 영역 (핵심!) */
+        .visual-comparison {
+            display: flex;
+            height: 250px; /* 이미지 높이 고정 */
+            position: relative;
+        }
+
+        .img-box {
+            flex: 1; /* 반반 차지 */
+            background-color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        /* 마우스 올리면 이미지가 살짝 확대됨 */
+        .design-card:hover .img-box img {
+            transform: scale(1.05);
+        }
+
+        /* 이미지 위 라벨 (Art vs Design) */
+        .img-label {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            padding: 3px 8px;
+            font-size: 0.8rem;
+            border-radius: 5px;
+            z-index: 2;
+        }
+
+        /* 중앙 화살표 아이콘 */
+        .arrow-icon {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 5;
+            color: var(--primary-blue);
+            font-weight: 900;
+            font-size: 1.2rem;
+        }
+
+        /* 카드 하단: 텍스트 영역 */
+        .text-content {
+            padding: 25px;
+        }
+
+        .text-content h3 {
+            margin: 0 0 10px 0;
+            color: var(--dark-blue);
+            font-size: 1.4rem;
+        }
+
+        .keyword-row {
+            margin-bottom: 15px;
+        }
+
+        .keyword {
+            display: inline-block;
+            font-size: 0.8rem;
+            color: var(--primary-blue);
+            border: 1px solid var(--primary-blue);
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-right: 5px;
+        }
+
+        .desc {
+            font-size: 0.95rem;
+            color: #444;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* [5] 모바일 최적화 */
+        @media (max-width: 600px) {
+            .design-container { grid-template-columns: 1fr; }
+            .visual-comparison { height: 200px; }
+            header h1 { font-size: 1.8rem; }
+        }
+
+        /* keyframes 정의: 'float'이라는 애니메이션 */
+@keyframes float {
+    0% { transform: translateY(0px); }    /* 시작: 원래 위치 */
+    50% { transform: translateY(-10px); } /* 중간: 위로 10px 이동 */
+    100% { transform: translateY(0px); }   /* 끝: 다시 원래 위치 */
+}
+
+/* 이미지에 애니메이션 적용 */
+.floating-image {
+    animation: float 3s ease-in-out infinite; /* float 애니메이션을 3초 동안 부드럽게 무한 반복 */
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }    /* 시작: 원래 위치 */
+    50% { transform: translateY(10px); } /* 중간: 위로 10px 이동 */
+    100% { transform: translateY(0px); }   /* 끝: 다시 원래 위치 */
+}
+
+/* 이미지에 애니메이션 적용 */
+
+    .cloud {
+    animation: float 2.8s ease-in-out infinite; 
+}
+
+.decoo {
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100px); 
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0); /* 끝: 원래 위치 (translateX(0)) */
+    }
+}
+
+/* 2. 이미지 요소에 적용 */
+.image-slide-in {
+    /* 초기 상태를 정의할 필요 없이, 애니메이션 속성만 부여 */
+    animation: slideInLeft 0.8s ease-out forwards; 
+    /* 0.8초 동안 실행되며, 끝난 상태를 유지합니다. */
+}
+
+.fade-in-box {
+  animation: fadeIn 3s; /* "fadeIn" 애니메이션을 3초 동안 실행 */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0; /* 시작 시 투명도 0 */
+  }
+  to {
+    opacity: 1; /* 종료 시 투명도 1 */
+  }
+}
+    .image-overlap-container {
+        position: relative;
+     /* 컨테이너 높이 지정 */
+        width: 800px; /* 너비도 명확히 지정 */
+        height: 300px; /* <--- 이 부분이 반드시 필요합니다! */
+    }
+
+    .base-image {
+        position: absolute;
+        top: 28px;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: none;
+        z-index: 1; /* 아래에 깔릴 이미지 */
+    }
+
+    .deco-image {
+        position: absolute;
+        top: 0;
+        left: 10px;
+        width: 80%;
+        height: 80%;
+        object-fit: contain;
+        z-index: 2; /* 아래에 깔릴 이미지 */
+    }
+
+    .overlay-image {
+        position: absolute;
+        left: 0%;
+        top: 0%; 
+        object-fit: none;
+        z-index: 3; /* 위에 올라올 이미지 */
+    }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <span class="category-tag">Visual Design & Art History</span>
+        <h1>미술사에서 태어난<br>현대 디자인의 원리</h1>
+        <p>과거의 명작 속에 숨겨진 조형 원리가 오늘날의 디자인에 무슨 영향을 주었을까요?</p>
+             <div class="design-card">
+         <a href="메인페이지.html">◀ 메인으로 돌아가기</a>
+         </div>
+       
+        <div class="image-overlap-container">
+    <img src="배경.png" alt="배경부" class="deco-image decoo">
+    <img src="인물.png" alt="주제부" class="overlay-image floating-image">
+
+    </div>
+    </header>
+    
+
+    <div class="design-container">
+
+        <div class="design-card">
+            <div class="visual-comparison">
+                <div class="img-box">
+                    <span class="img-label">바우하우스</span>
+                    <img src="https://buly.kr/DEaCfkv" alt="바우하우스">
+                </div>
+                <div class="arrow-icon">➜</div>
+                <div class="img-box">
+                    <span class="img-label">uxui</span>
+                    <img src="https://buly.kr/2Ujyq0r" alt="UXUI 디자인">
+                </div>
+            </div>
+            <div class="text-content">
+                <div class="keyword-row">
+                    <span class="keyword">#기능주의</span>
+                    <span class="keyword">#미니멀리즘</span>
+                    <span class="keyword">#그리드</span>
+                </div>
+                <h3>바우하우스와 UXUI디자인</h3>
+                <p class="desc">
+                    '형태는 기능을 따른다'는 바우하우스의 철학은 현대
+                    기능 구성의 디자인을 뜻하는 UXUI디자인과 연계되고 있습니다.
+                </p>
+            </div>
+        </div>
+
+        <div class="design-card">
+            <div class="visual-comparison">
+                <div class="img-box">
+                    <span class="img-label">팝아트</span>
+                    <img src="https://buly.kr/6138U4V" alt="앤디워홀">
+                </div>
+                <div class="arrow-icon">➜</div>
+                <div class="img-box">
+                    <span class="img-label">광고디자인</span>
+                    <img src="https://buly.kr/4bj4dWC" alt="광고디자인">
+                </div>
+            </div>
+            <div class="text-content">
+                <div class="keyword-row">
+                    <span class="keyword">#강조</span>
+                    <span class="keyword">#시인성</span>
+                    <span class="keyword">#복제</span>
+                </div>
+                <h3>팝아트와 광고디자인</h3>
+                <p class="desc">
+                    앤디 워홀 작품의 강렬한 원색 대비, 앤디 워홀의 작품을 '복제'하던 행위, 셀프 브랜딩화는
+                     소비자의 시선을 즉각적으로 사로잡아야 하는 광고디자인과 연계 됩니다.
+                </p>
+            </div>
+        </div>
+
+        <div class="design-card">
+            <div class="visual-comparison">
+                <div class="img-box">
+                    <span class="img-label">바바라 크루거</span>
+                    <img src="https://buly.kr/FsJZPfu" alt="구성주의">
+                </div>
+                <div class="arrow-icon">➜</div>
+                <div class="img-box">
+                    <span class="img-label">로고</span>
+                    <img src="https://buly.kr/BeLNs6G" alt="로고 디자인">
+                </div>
+            </div>
+            <div class="text-content">
+                <div class="keyword-row">
+                    <span class="keyword">#브랜딩</span>
+                    <span class="keyword">#브랜드정체성</span>
+                    <span class="keyword">#차별성</span>
+                </div>
+                <h3>구성주의와 브랜드 디자인</h3>
+                <p class="desc">
+                   강렬한 타이포그래피 작품을 선보였던 바바라 크루거의 작품은 미술사에도 큰 영향을 주었습니다.
+                   그녀의 작품의 특징들은 구성주의나 개념미술에서 영향을 받아 형성되었는데요,
+                   이러한 바바라 크루거의 작품에 영감을 받아 만들어진 것이 '슈프림' 로고입니다.
+                   슈프림의 사례 말고도 구성주의, 타이포그래피 등의 양식은 현대에 와서도 다양한 분야에서 활약하고 있습니다.
+                </p>
+            </div>
+        </div>
+
+        <div class="design-card">
+            <div class="visual-comparison">
+                <div class="img-box">
+                    <span class="img-label">로코코 양식</span>
+                    <img src="https://buly.kr/FhOoQqa" alt="로코코">
+                </div>
+                <div class="arrow-icon">➜</div>
+                <div class="img-box">
+                    <span class="img-label">패키지</span>
+                    <img src="https://buly.kr/6tcvO1m" alt="패키지 디자인">
+                </div>
+            </div>
+            <div class="text-content">
+                <div class="keyword-row">
+                    <span class="keyword">#고급화전략</span>
+                    <span class="keyword">#감성</span>
+                    <span class="keyword">#계급사회</span>
+                </div>
+                <h3>로코코 양식과 패키지 디자인</h3>
+                <p class="desc">
+                   로코코 양식과 같은 고전 미술 양식들은 한 눈에 봐도 어딘가 고급스럽고 교양있는 분위기를 줍니다.
+                   현재는 사회 신분은 사라졌지만, 사회적 위치가 서열화되고 집단으로 가르는 사회 계층화 현상은 아직 존재합니다.
+                   사람은 자신의 부나 재력, 사회적 위치를 과시하고자 있는 욕망이 누구나 존재합니다.
+                   고급 브랜드 제품들은, 소비자들의 이런 심리를 파악하여 패키지 디자인에 로코코 양식을 적용하며
+                   고급화 전략을 펼침과 동시에, 소비자들의 구매 욕구를 자극합니다.
+                   이는 패키지 디자인과 연계할 수 있습니다.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

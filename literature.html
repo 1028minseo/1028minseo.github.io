@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상세 페이지 - 문학</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* [1] 공통 스타일 (이전 페이지와 통일) */
+        :root {
+            --primary-blue: #2563eb;
+            --dark-blue: #1e40af;
+            --light-blue: #eff6ff;
+            --text-color: #333;
+            --bg-gray: #4A90E2;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--bg-gray);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+        }
+
+        /* [2] 상단 네비게이션 (뒤로가기 버튼) */
+        .nav-bar {
+            background-color: white;
+            padding: 15px 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: sticky; /* 스크롤 내려도 상단 고정 */
+            top: 0;
+            width: 100%;
+            z-index: 100;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: var(--primary-blue);
+            font-weight: 700;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .back-btn::before {
+            content: "← "; /* 화살표 아이콘 */
+            margin-right: 5px;
+            font-size: 1.2rem;
+        }
+
+        /* [3] 메인 컨텐츠 영역 */
+        .content-container {
+            max-width: 800px; /* 읽기 편한 최대 너비 */
+            margin: 40px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        /* [4] 제목 및 태그 스타일 */
+        .header-section {
+            border-bottom: 2px solid var(--light-blue);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .subject-badge {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: var(--dark-blue);
+            margin: 10px 0;
+            word-break: keep-all; /* 단어 단위 줄바꿈 */
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        /* [5] 본문 및 이미지 스타일 */
+        .image-placeholder {
+            width: 100%;
+            height: 500px; /* 이미지 높이 */
+            background-color: #e2e8f0; /* 이미지가 없을 때 회색 배경 */
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            margin-bottom: 20px;
+            overflow: hidden; /* 이미지가 둥근 모서리를 넘지 않게 */
+        }
+        
+        /* 실제 이미지를 넣을 때 img 태그 스타일 */
+        .image-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 비율 유지하며 꽉 채우기 */
+        }
+
+        h3 {
+            color: var(--primary-blue);
+            margin-top: 30px;
+            font-size: 1.4rem;
+            border-left: 4px solid var(--primary-blue);
+            padding-left: 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #444;
+            text-align: justify; /* 양쪽 정렬 */
+        }
+
+        /* [6] 핵심 요약 박스 (강조하고 싶을 때) */
+        .key-point-box {
+            background-color: var(--light-blue);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            border: 1px solid #bfdbfe;
+        }
+
+        .key-point-box h4 {
+            margin: 0 0 10px 0;
+            color: var(--dark-blue);
+        }
+
+        /* 모바일 최적화 */
+        @media (max-width: 600px) {
+            .content-container {
+                margin: 0;
+                border-radius: 0;
+                padding: 25px;
+                box-shadow: none;
+            }
+            h1 { font-size: 1.6rem; }
+            .image-placeholder { height: 200px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="nav-bar">
+        <a href="edu.html" class="back-btn">목록으로 돌아가기</a>
+    </nav>
+
+    <div class="content-container">
+        
+        <div class="header-section">
+            <span class="subject-badge">문학</span>
+            <h1>부활로 알아보는 삽화에서의 미술사</h1>
+            <p class="subtitle">문학에서 나타나는 미술사 사조</p>
+        </div>
+
+        <div class="image-placeholder">
+          <div id="carouselExample" class="carousel slide">
+<div class="carousel-inner">
+  <div class="carousel-item active">
+    <img src="https://buly.kr/FLZIGRJ" class="d-block w-100" alt="...">
+  </div>
+  <div class="carousel-item">
+    <img src="https://buly.kr/1vMvaG" class="d-block w-100" alt="...">
+  </div>
+  <div class="carousel-item">
+    <img src="https://buly.kr/4QoJS4F" class="d-block w-100" alt="...">
+  </div>
+</div>
+<button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+  <span class="visually-hidden">Previous</span>
+</button>
+<button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+  <span class="visually-hidden">Next</span>
+</button>
+</div>
+        </div>
+
+        <div class="article-body">
+            <h3>1. 레프 톨스토이의 "부활"</h3>
+            <p>
+              러시아의 대문호 중 하나로 자주 거론되는 레프 톨스토이의 소설 '부활'은 1899년 12월 단행본으로 출간된 소설입니다.
+              부활은 인간의 죄의식의 성찰을 주제로 한 작품입니다. 작품의 제목이 부활이고, 실제로 작품 내에도 종교적 요소가 많이 거론되나,
+              제목 '부활'은 종교적 부활보다는, 주인공과 주요 인물이 겪는 영적, 도덕적 갱생의 뜻에 더욱 집중되어 있습니다.
+              이러한 작품 내 설정되어있는 무거운 주제 때문에 작품 내 등장인물이 겪는 상황들은 꽤 암울하고, 비극적이기도 합니다.
+            </p>
+
+            <h3>2. 부활 속 삽화 </h3>
+            <p>
+            이러한 부활 안에는 삽화가 포함되었습니다. 민음사 출판에도 삽입되어 있는데요,
+            이러한 삽화 덕분에 실제로 부활을 읽을 때 상황 파악, 장면 구상하는 데에 용이했던 기억이 있습니다.
+            부활의 삽화를 그린 사람은 레오니트 파스테르나크인데요, 톨스토이가 직접 파스테르나크에게 찾아가
+            부활의 삽화를 그려줄 것을 요청하고, (부활은 애초에 삽화와 같이 기획되었던 작품이었습니다.) 
+            그의 그림을 높이 평가했다고 알려져 있습니다.
+            파스테르나크는 작품 내 삽화를 작품 분위기에 맞게 어둡고, 명암 대비를 강조하여 사용했습니다.
+            특히 거친 붓질로 생동감을 주고, 현장에서 급하게 그려낸 듯한 느낌을 주어 몰입에 도움을 주는 기능을 합니다.
+            또한, 주인공의 심리 묘사와 복잡한 심리 상태를 더욱 극적으로 느껴지게 하는 역할을 함과 동시에,
+            거칠고 생동감이 느껴지는 붓질은 인상주의 기법과 연계되기도 합니다.
+            </p>
+            <p>
+                
+            </p>
+
+            <div class="key-point-box">
+                <h4>+</h4>
+                <p>
+            톨스토이는 작품의 주제를 인생 그 자체의 고찰, 인간 본질에 대한 탐구로 자주 설정한 작가입니다.
+            등장인물의 치밀한 심리 묘사와 상황 묘사에서 긴장감이 뚜렷하게 등장하는 작품이 많고,
+            당대 러시아 사회의 모습을 실제적으로 표현했습니다.
+            주로 교훈적 메시지를 담고 있는 작품이 많으며, 작품의 분량이 상당히 깁니다.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</html>

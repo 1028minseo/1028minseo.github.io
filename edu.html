@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미술사와 교과 연계</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* [1] 기본 스타일 설정 */
+        :root {
+            --primary-blue:#FFD700; /* 메인 파란색 */
+            --dark-blue: #15337c;    /* 진한 파란색 (제목 등) */
+            --light-blue: #7cade6; 
+            --text-color: #333333;   /* 기본 글자색 */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--light-blue);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* [2] 헤더 스타일 */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            color: var(--dark-blue);
+            margin-bottom: 10px;
+            border-bottom: 3px solid var(--primary-blue);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        header p {
+            color: #555;
+            font-size: 1rem;
+        }
+
+        /* [3] 메인 그리드 레이아웃 (카드 배치) */
+        .container {
+            display: grid;
+            /* 화면 크기에 따라 자동으로 2열 혹은 1열로 배치 */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 20px;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        /* [4] 카드 스타일 디자인 */
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+            border-top: 5px solid var(--primary-blue); /* 상단 파란 줄 */
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px); /* 마우스 올리면 살짝 떠오름 */
+        }
+
+        .subject-tag {
+            display: inline-block;
+            background-color: var(--light-blue);
+            color: var(--primary-blue);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .card h2 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--dark-blue);
+        }
+
+        .card-content {
+            font-size: 0.95rem;
+            color: #444;
+        }
+
+        .card-content strong {
+            color: var(--primary-blue);
+        }
+
+        /* [5] 반응형 (모바일) */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.6rem; }
+            .container { grid-template-columns: 1fr; } /* 모바일은 1줄 */
+        }
+            .hw {
+                color: #FFD700;
+        }
+    </style>
+
+</head>
+<body>
+
+    <header>
+        <h1>교과서와 미술사 연계하기</h1>
+        <p>다양한 교과와 연계해봐요!</p>
+             <a class=hw, href="메인페이지.html">◀ 메인으로 돌아가기</a>
+    </header>
+
+    <div class="container">
+<a href="cloud.html">
+        <div class="card">
+            <span class="subject-tag">지구과학</span>
+            <h2>존 컨스터블</h2>
+            <div class="card-content">
+                <p>
+                </p>
+            </a>
+            </div>
+        </div>
+
+        <div class="card">
+            <a href="literature.html">
+            <span class="subject-tag">문학</span>
+            <h2>레프 톨스토이와 파스테르나크</h2>
+            <div class="card-content">
+                <p>
+                  
+                </p>
+            </a>
+            </div>
+        </div>
+
+        <div class="card">
+            <a href="math.html">
+            <span class="subject-tag">수학</span>
+            <h2>피보나치 수열과 황금비</h2>
+            <div class="card-content">
+                <p>
+                  
+                </p>
+            </a>
+            </div>
+        </div>
+
+        <div class="card">
+            <a href="democracy.html">
+            <span class="subject-tag">한국사</span>
+            <h2>참상을 기억하는 또 다른 방법</h2>
+            <div class="card-content">
+                <p>
+                   
+                </p>
+            </a>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
