@@ -1,1 +1,1 @@
-# 1028minseogithub.io
+# 1028minseo.github.io
